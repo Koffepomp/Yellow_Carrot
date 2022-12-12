@@ -70,7 +70,7 @@ namespace YellowCarrot.Migrations
                         column: x => x.RecipesRecipeId,
                         principalTable: "Recipes",
                         principalColumn: "RecipeId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,7 +91,7 @@ namespace YellowCarrot.Migrations
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "RecipeId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,7 +115,7 @@ namespace YellowCarrot.Migrations
                         column: x => x.TagsName,
                         principalTable: "Tags",
                         principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
