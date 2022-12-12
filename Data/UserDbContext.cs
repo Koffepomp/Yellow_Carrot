@@ -27,6 +27,8 @@ namespace Yellow_Carrot.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseEncryption(_provider);
+
+
         }
     }
 }

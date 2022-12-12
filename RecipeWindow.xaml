@@ -7,6 +7,46 @@
         mc:Ignorable="d"
         Title="RecipeWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Column="2"
+            Grid.Row="1">
+            <ListView
+                Name="lvRecipes"
+                Height="200"/>
+            <Button
+                Name="btnAddRecipe"
+                Content="Add Recipe"
+                Click="btnAddRecipe_Click"/>
+            <Button
+                Name="btnDetails"
+                IsEnabled="False"
+                Content="Details"
+                Click="btnDetails_Click"/>
+            <Button
+                Name="btnDelete"
+                IsEnabled="False"
+                Content="Delete Recipe"
+                Click="btnDelete_Click"/>
+            <Label
+                Content="Sök:"/>
+            <TextBox
+                Name="tbSearch"/>
+            <Button
+                Name="btnSearch"
+                Content="Search"
+                Click="btnSearch_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

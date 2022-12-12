@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using Yellow_Carrot.Data;
+using Yellow_Carrot.Managers;
+using Yellow_Carrot.Models;
 
 namespace Yellow_Carrot
 {
@@ -22,6 +13,36 @@ namespace Yellow_Carrot
         public RegisterWindow()
         {
             InitializeComponent();
+        }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            User newUser = new()
+            {
+                Name = tbUsername.Text,
+                Password = pbPassword.Password,
+                IsAdmin = false
+            };
+            using (UserDbContext context = new())
+            {
+                UserManager user = new(context);
+
+                if (user.CreateUser(newUser))
+                {
+                    this.Owner.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Username is already taken!");
+                }
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Owner.Show();
+            this.Close();
         }
     }
 }

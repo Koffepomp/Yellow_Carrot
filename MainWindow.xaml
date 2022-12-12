@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yellow_Carrot"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="800">
+        Title="Login" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Column="2"
+            Grid.Row="1">
+            <Label
+                Content="Username:"/>
+            <TextBox
+                Name="tbUsername"
+                />
+            <Label
+                Content="Password:"/>
+            <PasswordBox
+                Name="pbPassword"
+                />
+            <Button
+                Name="btnLogin"
+                Content="Login"
+                Click="btnLogin_Click"/>
+            <Button
+                Name="btnRegister"
+                Content="Register"
+                Click="btnRegister_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

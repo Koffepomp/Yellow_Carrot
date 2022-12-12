@@ -5,7 +5,6 @@ namespace Yellow_Carrot.Data
 {
     public class RecipeDbContext : DbContext
     {
-        public DbSet<UserDbContext> Users { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Step> Steps { get; set; }
         public DbSet<Recipe> Recipes { get; set; }

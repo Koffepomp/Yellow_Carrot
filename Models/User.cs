@@ -1,5 +1,4 @@
 ﻿using EntityFrameworkCore.EncryptColumn.Attribute;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Yellow_Carrot.Models
@@ -14,6 +13,5 @@ namespace Yellow_Carrot.Models
         public string Password { get; set; } = null!;
 
         public bool IsAdmin { get; set; }
-        public List<Recipe> Recipes { get; set; } = new();
     }
 }

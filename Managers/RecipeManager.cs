@@ -1,4 +1,8 @@
-﻿using Yellow_Carrot.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using Yellow_Carrot.Data;
+using Yellow_Carrot.Models;
 
 namespace Yellow_Carrot.Managers
 {
@@ -8,6 +12,11 @@ namespace Yellow_Carrot.Managers
         public RecipeManager(RecipeDbContext context)
         {
             this.context = context;
+        }
+
+        public List<Recipe> GetAllRecipes()
+        {
+            return context.Recipes.Include(r => r.Ingredients).Include(r => r.Steps).Include(r => r.Tags).ToList();
         }
     }
 }
