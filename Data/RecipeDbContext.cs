@@ -23,14 +23,16 @@ namespace Yellow_Carrot.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
         {
+            // Sätter min databas till YellowCarrotRecipeDb som hanterar allting förutom users
             optionsbuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=YellowCarrotRecipeDb;Trusted_Connection=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Skapar rätt many-to-one relationer mellan Recipe och Ingredients/Steps så att dom tas bort om receptet tas bort
             modelBuilder.Entity<Recipe>().HasMany(u => u.Ingredients).WithOne(r => r.Recipe).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Recipe>().HasMany(u => u.Steps).WithOne(r => r.Recipe).OnDelete(DeleteBehavior.Cascade);
 
-            // Recipe #1 seed
+            // Seedar ett recept in i databasen
             modelBuilder.Entity<Recipe>().HasData
                 (new Recipe()
                 {

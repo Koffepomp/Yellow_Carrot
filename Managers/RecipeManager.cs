@@ -14,26 +14,31 @@ namespace Yellow_Carrot.Managers
             this.context = context;
         }
 
+        // Hämtar alla recept i databasen samt inkluderar steps och tags.
         public List<Recipe> GetAllRecipes()
         {
             return context.Recipes.Include(r => r.Ingredients).Include(r => r.Steps).Include(r => r.Tags).ToList();
         }
 
+        // Hämtar ett specifikt recept baserat på en int som skickas med. Inkluderar även här steps och tags.
         public Recipe? GetSpecificRecipe(int id)
         {
             return context.Recipes.Where(recipe => recipe.RecipeId == id).Include(recipe => recipe.Ingredients).Include(recipe => recipe.Steps).Include(recipe => recipe.Tags).FirstOrDefault();
         }
 
+        // Används av AddRecipeWindow och skapar helt enkelt ett nytt recept.
         public void CreateNewRecipe(Recipe recipe)
         {
             context.Recipes.Add(recipe);
         }
 
+        // Används av RecipeWindow när man väljer att ta bort ett recept.
         public void DeleteRecipe(Recipe recipeToRemove)
         {
             context.Recipes.Remove(recipeToRemove);
         }
 
+        // Tar emot en sträng med sökord som matchas i databasen mot recept namn eller tags
         public List<Recipe> SearchResult(string keyword)
         {
             List<Recipe> result = context.Recipes.Where(r => r.Name.ToLower()
@@ -45,6 +50,7 @@ namespace Yellow_Carrot.Managers
             return result;
         }
 
+        // Letar efter en tag i databasen med hjälp av en sträng
         public Tag? GetTagByName(string tagName)
         {
             return context.Tags.Where(t => t.Name == tagName).FirstOrDefault();

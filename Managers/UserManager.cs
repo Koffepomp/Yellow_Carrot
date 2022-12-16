@@ -13,6 +13,9 @@ namespace Yellow_Carrot.Managers
             this.context = context;
         }
 
+        // Används av RegisterWindow för att skapa ett nytt konto.
+        // Den använder metoden nedan också för att kolla om användarnamnet är tillgängligt.
+        // Om inte så skapas en ny användare och returnerar en bool. 
         public bool CreateUser(User newUser)
         {
             if (IsUsernameAvailable(newUser.Name))
@@ -24,6 +27,8 @@ namespace Yellow_Carrot.Managers
             return false;
         }
 
+        // Används i metoden ovan för att jämnföra en sträng mot databasen och kolla om ett nytt användarnamn är tillgängligt.
+        // Returnerar som false om namnet är upptaget vilket får CreateUser att avbryta sin account creation.
         private bool IsUsernameAvailable(string username)
         {
             User? u = context.Users.Where(u => u.Name == username).FirstOrDefault();
@@ -34,6 +39,8 @@ namespace Yellow_Carrot.Managers
             return true;
         }
 
+        // När man trycker på logga in så kollas användarnamn och lösenord mot databasen.
+        // Om det inte matchar returneras en null user vilket avbryter inloggningen.
         public User? LoginAuthentication(string userName, string password)
         {
             User? signedUser = context.Users.Where(u => u.Name == userName && u.Password == password).FirstOrDefault();
@@ -41,6 +48,7 @@ namespace Yellow_Carrot.Managers
             return signedUser;
         }
 
+        // Returnerar ett användarnamn från databasen baserat på UserId som skickas av en int.
         public string GetUserNameFromId(int id)
         {
             User? user = context.Users.Where(u => u.UserId == id).FirstOrDefault();

@@ -19,6 +19,7 @@ namespace Yellow_Carrot
             this.loginId = loginId;
         }
 
+        // Lägger till en ingrediens i listviewen. Visar endast quantity om det inte är en tom sträng.
         private void btnAddIngredient_Click(object sender, RoutedEventArgs e)
         {
             Ingredient newIngredient = new()
@@ -39,16 +40,22 @@ namespace Yellow_Carrot
             tbAddQuantity.Clear();
             btnDelete.Visibility = Visibility.Hidden;
         }
+
+        // Om man ångrar sig och markerar en ingrediens i listviewen så dyker "Delete ingredient" knappen upp.
         private void lvIngredients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnDelete.Visibility = Visibility.Visible;
         }
+
+        // Tar bort en ingrediens från listviewen och gömmer delete knappen igen.
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             lvIngredients.Items.Remove(lvIngredients.SelectedItem);
             btnDelete.Visibility = Visibility.Hidden;
         }
 
+        // När man lägger till ett step i ett nytt recept, så baserar den step order på hur många step det redan finns i listan + 1.
+        // Så om det är första steget som läggs till så får den 0+1, dvs 1. Därefter anpassar den sig och fortsätter uppåt.
         private void btnAddStep_Click(object sender, RoutedEventArgs e)
         {
             Step newStep = new()
@@ -64,6 +71,7 @@ namespace Yellow_Carrot
             tbAddStep.Clear();
         }
 
+        // När man trycker add tag så läggs tagen till i listview med en hashtag före.
         private void btnAddTag_Click(object sender, RoutedEventArgs e)
         {
             Tag newTag = new()
@@ -78,6 +86,8 @@ namespace Yellow_Carrot
             tbAddTag.Clear();
         }
 
+        // Här sparas all inmatad information tillsammans i ett recept.
+        // Men först är det 3 checks som ser till att man skriver in ett recipe name, lägger till minst 1 ingrediens samt step.
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (tbRecipeName.Text.Length > 0)
@@ -97,6 +107,8 @@ namespace Yellow_Carrot
                                 Steps = CreateStepList(),
                             };
 
+                            // Funktionen att spara tags och kolla efter nuvarande matchningar var klurigt.
+                            // Fick ta hjälp av andra i klassen för att få detta och fungera korrekt.
                             foreach (Tag tag in CreateTagList())
                             {
                                 Tag? fetchedTag = unitofwork.rManager.GetTagByName(tag.Name);
@@ -133,12 +145,14 @@ namespace Yellow_Carrot
             }
         }
 
+        // Avbryter receptet och går tillbaka till ägaren, vilket i detta fallet är RecipeWindow.
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Owner.Show();
             this.Close();
         }
 
+        // Skapar en ingredienslista och lägger till alla items i listviewen till den.
         private List<Ingredient> CreateIngredientsList()
         {
             List<Ingredient> newIngredientList = new();
@@ -150,6 +164,7 @@ namespace Yellow_Carrot
             return newIngredientList;
         }
 
+        // Skapar en steplista som har en counter som börjar på 1 och går +1 för varje step som läggs till.
         private List<Step> CreateStepList()
         {
             List<Step> newStepList = new();
@@ -165,6 +180,7 @@ namespace Yellow_Carrot
             return newStepList;
         }
 
+        // Skapar en taglista med alla tags i listviewen.
         private List<Tag> CreateTagList()
         {
             List<Tag> newTagList = new();

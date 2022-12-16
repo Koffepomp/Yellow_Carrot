@@ -15,6 +15,8 @@ namespace Yellow_Carrot
             InitializeComponent();
         }
 
+        // Förbereder en user att läggas in i databasen.
+        // Newas upp med användarnamn, lösenord och en bool som avgör om det är ett admin konto eller inte.
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             User newUser = new()
@@ -27,6 +29,7 @@ namespace Yellow_Carrot
             {
                 UserManager user = new(context);
 
+                // Lite checks så att man tar ett vettig användarnamn och lösenord.
                 if (tbUsername.Text.Length >= 3 && tbUsername.Text.Length <= 16)
                 {
                     if (pbPassword.Password.Length > 0)
@@ -53,6 +56,7 @@ namespace Yellow_Carrot
             }
         }
 
+        // Stänger ner fönstret och öppnar ägaren, vilket i detta fallet är MainWindow.
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Owner.Show();

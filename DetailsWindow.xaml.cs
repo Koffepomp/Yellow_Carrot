@@ -23,16 +23,16 @@ namespace Yellow_Carrot
             LoadRecipeData();
         }
 
-
+        // Denna metoden körs bara 1 gång när DetailsWindow öppnas, vilket fyller i all information gällande receptet som man valt.
         private void LoadRecipeData()
         {
-            //körs bara 1 gång när rutan öppnas
             using (RecipeDbContext context = new())
             {
                 UnitOfWork unitofwork = new(context);
                 Recipe currentRecipe = unitofwork.rManager.GetSpecificRecipe(currentRecipeId);
                 tbRecipeName.Text = currentRecipe.Name;
 
+                // Lägger till alla nuvarande ingredienser i listviewen.
                 foreach (Ingredient ingredient in currentRecipe.Ingredients)
                 {
                     ListViewItem oldItem = new();
@@ -45,6 +45,7 @@ namespace Yellow_Carrot
                     lvIngredients.Items.Add(oldItem);
                 }
 
+                // Lägger till alla nuvarande steps i listviewen.
                 foreach (Step step in currentRecipe.Steps)
                 {
                     ListViewItem oldItem = new();
@@ -53,7 +54,7 @@ namespace Yellow_Carrot
                     lvSteps.Items.Add(oldItem);
                 }
 
-                // Här ska rätt tags ladda till receptet
+                // Lägger till alla nuvarande tags i listviewen.
                 foreach (Tag tag in currentRecipe.Tags)
                 {
                     ListViewItem oldItem = new();
@@ -63,6 +64,9 @@ namespace Yellow_Carrot
                 }
             }
         }
+
+        // När man trycker på unlock så kollar den om unlockRights är satt till true, baserat på IsAdmin propertyn på kontot.
+        // Om den är true så låses alla textrutor och listviews upp och man kan lägga till fler ingredienser, steps eller tags.
         private void btnUnlock_Click(object sender, RoutedEventArgs e)
         {
             if (unlockRights)
@@ -85,7 +89,7 @@ namespace Yellow_Carrot
                 tbAddTag.Visibility = Visibility.Visible;
                 btnAddTag.Visibility = Visibility.Visible;
 
-                // Recipe name, disable unlock button and enable save button
+                // Låser upp recept namn, stänger av unlock knappen och save knappen är inte grayed out längre.
                 tbRecipeName.IsEnabled = true;
                 btnUnlock.IsEnabled = false;
                 btnSave.IsEnabled = true;
@@ -97,15 +101,17 @@ namespace Yellow_Carrot
 
         }
 
+        // Stänger fönstret och öppnar ägaren, vilket i detta fallet är RecipeWindow.
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Owner.Show();
             this.Close();
         }
 
+        // Sparar alla listviews, både ingredienser, steps och tags. Därefter ersätter den gamla informationen med den nya.
+        // Det sista metoden gör är att casta en metod ifrån RecipeWindow vid namn "LoadsDbRecipes" vilket uppdaterar listviewen.
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            // save boxes in db
             using (RecipeDbContext context = new())
             {
                 UnitOfWork unitofwork = new(context);
@@ -156,6 +162,8 @@ namespace Yellow_Carrot
             this.Owner.Show();
             this.Close();
         }
+
+        // Lägger till en ingrediens i listviewen. Visar endast quantity om det inte är en tom sträng.
         private void btnAddIngredient_Click(object sender, RoutedEventArgs e)
         {
             Ingredient newIngredient = new()
@@ -177,17 +185,21 @@ namespace Yellow_Carrot
             btnDelete.Visibility = Visibility.Hidden;
         }
 
+        // Tar bort en ingrediens från listviewen och gömmer delete knappen igen.
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             lvIngredients.Items.Remove(lvIngredients.SelectedItem);
             btnDelete.Visibility = Visibility.Hidden;
         }
 
+        // Om man ångrar sig och markerar en ingrediens i listviewen så dyker "Delete ingredient" knappen upp.
         private void lvIngredients_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             btnDelete.Visibility = Visibility.Visible;
         }
 
+        // När man lägger till ett step i ett nytt recept, så baserar den step order på hur många step det redan finns i listan + 1.
+        // Så om det är första steget som läggs till så får den 0+1, dvs 1. Därefter anpassar den sig och fortsätter uppåt.
         private void btnAddStep_Click(object sender, RoutedEventArgs e)
         {
             Step newStep = new()
@@ -203,6 +215,7 @@ namespace Yellow_Carrot
             tbAddStep.Clear();
         }
 
+        // När man trycker add tag så läggs tagen till i listview med en hashtag före.
         private void btnAddTag_Click(object sender, RoutedEventArgs e)
         {
             Tag newTag = new()
