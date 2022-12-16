@@ -5,8 +5,227 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yellow_Carrot"
         mc:Ignorable="d"
-        Title="AddRecipeWindow" Height="450" Width="800">
+        Title="Add recipe" Height="600" FontFamily="Verdana" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="Beige">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "0.3*"/>
+            <ColumnDefinition Width = "0.7*"/>
+            <ColumnDefinition Width = "0.3*"/>
+            <ColumnDefinition Width = "*"/>
+            <ColumnDefinition Width = "0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "*"/>
+            <RowDefinition Height = "0.4*"/>
+            <RowDefinition Height = "2*"/>
+            <RowDefinition Height = "0.4*"/>
+            <RowDefinition Height = "2*"/>
+            <RowDefinition Height = "*"/>
+        </Grid.RowDefinitions>
+        <Label
+            Content="NEW RECIPE NAME:"
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            FontSize="22"
+            />
+        <TextBox
+            Name="tbRecipeName"
+            Text=""
+            Grid.Row="0"
+            Grid.Column="3"
+            Height="30"
+            Margin="0,0,50,3"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            VerticalAlignment="Bottom"
+            />
+        <Label
+            Content="INGREDIENTS:"
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="left"
+            VerticalAlignment="Bottom"
+            FontSize="16"
+            />
+        <ListView
+            Name="lvIngredients"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            Margin="5"
+            SelectionChanged="lvIngredients_SelectionChanged"
+            />
+        <Label
+            Content="STEPS:"
+            Grid.Row="1"
+            Grid.Column="3"
+            HorizontalAlignment="left"
+            VerticalAlignment="Bottom"
+            FontSize="16"
+            />
+        <ListView
+            Name="lvSteps"
+            Grid.Column="3"
+            Grid.Row="2"
+            Margin="5,5,5,40"
+            />
+        <TextBox
+            Name="tbAddStep"
+            Text=""
+            Grid.Row="2"
+            Grid.Column="3"
+            Width="155"
+            Height="30"
+            Margin="5"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            />
+        <Button
+            Name="btnAddStep"
+            Content="ADD"
+            Grid.Row="2"
+            Grid.Column="3"
+            Height="30"
+            Width="60"
+            Margin="5"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Click="btnAddStep_Click"
+            />
+        <Label
+            Content="TAGS:"
+            Grid.Row="3"
+            Grid.Column="3"
+            HorizontalAlignment="left"
+            VerticalAlignment="Bottom"
+            FontSize="16"
+            />
+        <ListView
+            Name="lvTags"
+            Grid.Column="3"
+            Grid.Row="4"
+            Margin="5,5,5,40"
+            />
+        <TextBox
+            Name="tbAddTag"
+            Text=""
+            Grid.Row="4"
+            Grid.Column="3"
+            Width="155"
+            Height="30"
+            Margin="5"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            />
+        <Button
+            Name="btnAddTag"
+            Content="ADD"
+            Grid.Row="4"
+            Grid.Column="3"
+            Height="30"
+            Width="60"
+            Margin="5"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Click="btnAddTag_Click"
+            />
+        <Label
+            Content="NAME:"
+            Grid.Row="4"
+            Grid.Column="1"
+            HorizontalAlignment="left"
+            VerticalAlignment="Top"
+            FontSize="11"
+            />
+        <TextBox
+            Name="tbAddIngredient"
+            Text=""
+            Grid.Row="4"
+            Grid.Column="1"
+            Height="30"
+            Margin="7,25,7,7"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            VerticalAlignment="Top"
+            />
+        <Label
+            Content="QUANTITY:"
+            Grid.Row="4"
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            FontSize="11"
+            />
+        <TextBox
+            Name="tbAddQuantity"
+            Text=""
+            Grid.Row="4"
+            Grid.Column="2"
+            Height="30"
+            Margin="7,25,7,7"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            VerticalAlignment="Top"
+            />
+        <Button
+            Name="btnAddIngredient"
+            Content="ADD"
+            Grid.Row="4"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Height="30"
+            Margin="7,60,7,7"
+            VerticalAlignment="Top"
+            Click="btnAddIngredient_Click"
+            />
+        <Button
+            Name="btnDelete"
+            Content="DELETE INGREDIENT"
+            Grid.Row="4"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Height="30"
+            Width="125"
+            Margin="0,0,0,-50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="White"
+            BorderBrush="Black"
+            Background="Red"
+            Visibility="Hidden"
+            Click="btnDelete_Click"
+            />
+        <Button
+            Name="btnSave"
+            Content="SAVE"
+            Grid.Row="5"
+            Grid.Column="3"
+            Height="35"
+            Width="100"
+            Margin="5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="btnSave_Click"
+            />
+        <Button
+            Name="btnCancel"
+            Content="CANCEL"
+            Grid.Row="5"
+            Grid.Column="1"
+            Height="35"
+            Width="100"
+            Margin="5"
+            HorizontalAlignment="left"
+            VerticalAlignment="Top"
+            Click="btnCancel_Click"
+            />
     </Grid>
 </Window>

@@ -16,7 +16,7 @@ namespace Yellow_Carrot.Managers
         {
             get
             {
-                if (rManager == null)
+                if (_rManager == null)
                 {
                     _rManager = new RecipeManager(recipecontext);
                 }

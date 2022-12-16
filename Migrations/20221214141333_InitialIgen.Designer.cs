@@ -11,8 +11,8 @@ using Yellow_Carrot.Data;
 namespace YellowCarrot.Migrations
 {
     [DbContext(typeof(RecipeDbContext))]
-    [Migration("20221212124518_RecipeDb")]
-    partial class RecipeDb
+    [Migration("20221214141333_InitialIgen")]
+    partial class InitialIgen
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,21 +23,6 @@ namespace YellowCarrot.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("IngredientRecipe", b =>
-                {
-                    b.Property<int>("IngredientsIngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RecipesRecipeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IngredientsIngredientId", "RecipesRecipeId");
-
-                    b.HasIndex("RecipesRecipeId");
-
-                    b.ToTable("IngredientRecipe");
-                });
 
             modelBuilder.Entity("RecipeTag", b =>
                 {
@@ -66,10 +51,16 @@ namespace YellowCarrot.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Quantity")
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
                     b.HasKey("IngredientId");
+
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("Ingredients");
                 });
@@ -129,21 +120,6 @@ namespace YellowCarrot.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("IngredientRecipe", b =>
-                {
-                    b.HasOne("Yellow_Carrot.Models.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsIngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Yellow_Carrot.Models.Recipe", null)
-                        .WithMany()
-                        .HasForeignKey("RecipesRecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("RecipeTag", b =>
                 {
                     b.HasOne("Yellow_Carrot.Models.Recipe", null)
@@ -159,6 +135,17 @@ namespace YellowCarrot.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Yellow_Carrot.Models.Ingredient", b =>
+                {
+                    b.HasOne("Yellow_Carrot.Models.Recipe", "Recipe")
+                        .WithMany("Ingredients")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+                });
+
             modelBuilder.Entity("Yellow_Carrot.Models.Step", b =>
                 {
                     b.HasOne("Yellow_Carrot.Models.Recipe", "Recipe")
@@ -172,6 +159,8 @@ namespace YellowCarrot.Migrations
 
             modelBuilder.Entity("Yellow_Carrot.Models.Recipe", b =>
                 {
+                    b.Navigation("Ingredients");
+
                     b.Navigation("Steps");
                 });
 #pragma warning restore 612, 618

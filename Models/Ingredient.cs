@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Yellow_Carrot.Models
 {
@@ -8,7 +7,8 @@ namespace Yellow_Carrot.Models
         [Key]
         public int IngredientId { get; set; }
         public string Name { get; set; } = null!;
-        public int Quantity { get; set; }
-        public List<Recipe> Recipes { get; set; } = new();
+        public string Quantity { get; set; } = "";
+        public Recipe Recipe { get; set; } = new();
+        public int RecipeId { get; set; }
     }
 }

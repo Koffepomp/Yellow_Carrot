@@ -34,14 +34,17 @@ namespace Yellow_Carrot.Managers
             return true;
         }
 
-        public int LoginAuthentication(string userName, string password)
+        public User? LoginAuthentication(string userName, string password)
         {
-            User? loggedUser = context.Users.Where(u => u.Name == userName && u.Password == password).FirstOrDefault();
-            if (loggedUser != null)
-            {
-                return loggedUser.UserId;
-            }
-            return -1;
+            User? signedUser = context.Users.Where(u => u.Name == userName && u.Password == password).FirstOrDefault();
+
+            return signedUser;
+        }
+
+        public string GetUserNameFromId(int id)
+        {
+            User? user = context.Users.Where(u => u.UserId == id).FirstOrDefault();
+            return user.Name;
         }
     }
 }

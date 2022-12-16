@@ -5,48 +5,113 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yellow_Carrot"
         mc:Ignorable="d"
-        Title="RecipeWindow" Height="450" Width="800">
+        Title="Yellow Carrot" Height="600" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Verdana">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width = "*"/>
+            <ColumnDefinition Width = "*"/>
+            <ColumnDefinition Width = "0.5*"/>
+            <ColumnDefinition Width = "*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height = "*"/>
+            <RowDefinition Height = "3*"/>
+            <RowDefinition Height = "0.5*"/>
+            <RowDefinition Height = "*"/>
+            <RowDefinition Height = "*"/>
         </Grid.RowDefinitions>
-        <StackPanel
+        <ListView
+            Name="lvRecipes"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            Margin="5"
+            SelectionChanged="lvRecipes_SelectionChanged"
+            />
+        <Label
+            Content="-RECIPES LIST-"
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            FontSize="24"
+            />
+        <Label
+            Name="lblAdminView"
+            Content="(ADMIN VIEW)"
+            Grid.Row="0"
+            Grid.Column="3"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            FontSize="15" Foreground="Blue"
+            Visibility="Hidden"
+            />
+        <TextBox
+            Name="tbSearch"
+            Text=""
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="7"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            FontSize="10"
+            />
+        <Button
+            Name="btnAddRecipe"
+            Content="ADD RECIPE"
+            Grid.Row="4"
+            Grid.Column="3"
+            Height="35"
+            Width="100"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="btnAddRecipe_Click"/>
+        <Button
+            Name="btnDetails"
+            IsEnabled="False"
+            Content="Details"
+            Grid.Row="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Height="45"
+            Width="110"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Click="btnDetails_Click"/>
+        <Button
+            Name="btnDelete"
+            Content="DELETE RECIPE"
+            Grid.Row="4"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Height="35"
+            Width="100"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Foreground="White"
+            BorderBrush="Black"
+            Background="Red"
+            Visibility="Hidden"
+            Click="btnDelete_Click"/>
+        <Button
+            Name="btnSearch"
+            Content="SEARCH"
+            Grid.Row="2"
             Grid.Column="2"
-            Grid.Row="1">
-            <ListView
-                Name="lvRecipes"
-                Height="200"/>
-            <Button
-                Name="btnAddRecipe"
-                Content="Add Recipe"
-                Click="btnAddRecipe_Click"/>
-            <Button
-                Name="btnDetails"
-                IsEnabled="False"
-                Content="Details"
-                Click="btnDetails_Click"/>
-            <Button
-                Name="btnDelete"
-                IsEnabled="False"
-                Content="Delete Recipe"
-                Click="btnDelete_Click"/>
-            <Label
-                Content="Sök:"/>
-            <TextBox
-                Name="tbSearch"/>
-            <Button
-                Name="btnSearch"
-                Content="Search"
-                Click="btnSearch_Click"/>
-        </StackPanel>
+            Margin="0,7,7,7"
+            FontSize="10"
+            Click="btnSearch_Click"/>
+        <Button
+            Name="btnLogout"
+            Content="LOGOUT"
+            Grid.Row="4"
+            Grid.Column="0"
+            Height="35"
+            Width="100"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="btnLogout_Click"
+            />
     </Grid>
 </Window>

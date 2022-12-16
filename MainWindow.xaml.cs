@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Yellow_Carrot.Data;
 using Yellow_Carrot.Managers;
+using Yellow_Carrot.Models;
 
 namespace Yellow_Carrot
 {
@@ -18,11 +19,12 @@ namespace Yellow_Carrot
         {
             using (UserDbContext context = new())
             {
-                UserManager loggedUser = new(context);
-                int loginId = loggedUser.LoginAuthentication(tbUsername.Text, pbPassword.Password);
-                if (loginId > 0)
+                UserManager uManager = new(context);
+                User? signedUser = uManager.LoginAuthentication(tbUsername.Text, pbPassword.Password);
+
+                if (signedUser != null)
                 {
-                    RecipeWindow recipeWindow = new(loginId);
+                    RecipeWindow recipeWindow = new(signedUser.UserId, signedUser.IsAdmin);
                     recipeWindow.Owner = this;
                     recipeWindow.Show();
                     this.Hide();

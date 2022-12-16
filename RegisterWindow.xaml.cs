@@ -27,14 +27,28 @@ namespace Yellow_Carrot
             {
                 UserManager user = new(context);
 
-                if (user.CreateUser(newUser))
+                if (tbUsername.Text.Length >= 3 && tbUsername.Text.Length <= 16)
                 {
-                    this.Owner.Show();
-                    this.Close();
+                    if (pbPassword.Password.Length > 0)
+                    {
+                        if (user.CreateUser(newUser))
+                        {
+                            this.Owner.Show();
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Username is already taken!");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter a password.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Username is already taken!");
+                    MessageBox.Show("Please enter a username 3-16 characters.");
                 }
             }
         }
