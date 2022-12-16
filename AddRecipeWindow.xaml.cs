@@ -66,7 +66,16 @@ namespace Yellow_Carrot
 
         private void btnAddTag_Click(object sender, RoutedEventArgs e)
         {
+            Tag newTag = new()
+            {
+                Name = tbAddTag.Text,
+            };
 
+            ListViewItem newItem = new();
+            newItem.Content = $"#{newTag.Name}";
+            newItem.Tag = newTag;
+            lvTags.Items.Add(newItem);
+            tbAddTag.Clear();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -86,8 +95,20 @@ namespace Yellow_Carrot
                                 UserId = loginId,
                                 Ingredients = CreateIngredientsList(),
                                 Steps = CreateStepList(),
-                                //Tags = CreateTagList(),
                             };
+
+                            foreach (Tag tag in CreateTagList())
+                            {
+                                Tag? fetchedTag = unitofwork.rManager.GetTagByName(tag.Name);
+                                if (fetchedTag != null)
+                                {
+                                    newRecipe.Tags.Add(fetchedTag);
+                                }
+                                else
+                                {
+                                    newRecipe.Tags.Add(tag);
+                                }
+                            }
 
                             unitofwork.rManager.CreateNewRecipe(newRecipe);
                             context.SaveChanges();
@@ -147,6 +168,11 @@ namespace Yellow_Carrot
         private List<Tag> CreateTagList()
         {
             List<Tag> newTagList = new();
+            foreach (ListViewItem item in lvTags.Items)
+            {
+                Tag tag = item.Tag as Tag;
+                newTagList.Add(tag);
+            }
             return newTagList;
         }
 

@@ -52,6 +52,15 @@ namespace Yellow_Carrot
                     oldItem.Tag = step;
                     lvSteps.Items.Add(oldItem);
                 }
+
+                // Här ska rätt tags ladda till receptet
+                foreach (Tag tag in currentRecipe.Tags)
+                {
+                    ListViewItem oldItem = new();
+                    oldItem.Content = $"#{tag.Name}";
+                    oldItem.Tag = tag;
+                    lvTags.Items.Add(oldItem);
+                }
             }
         }
         private void btnUnlock_Click(object sender, RoutedEventArgs e)
@@ -119,9 +128,26 @@ namespace Yellow_Carrot
                     newSteps.Add(step);
                 }
 
+                List<Tag> newTags = new();
+                foreach (ListViewItem item in lvTags.Items)
+                {
+                    Tag tag = item.Tag as Tag;
+
+                    Tag? fetchedTag = unitofwork.rManager.GetTagByName(tag.Name);
+                    if (fetchedTag != null)
+                    {
+                        newTags.Add(fetchedTag);
+                    }
+                    else
+                    {
+                        newTags.Add(tag);
+                    }
+                }
+
                 oldRecipe.Name = tbRecipeName.Text;
                 oldRecipe.Ingredients = newIngredients;
                 oldRecipe.Steps = newSteps;
+                oldRecipe.Tags = newTags;
                 context.Recipes.Update(oldRecipe);
                 context.SaveChanges();
             }
@@ -179,7 +205,16 @@ namespace Yellow_Carrot
 
         private void btnAddTag_Click(object sender, RoutedEventArgs e)
         {
+            Tag newTag = new()
+            {
+                Name = tbAddTag.Text,
+            };
 
+            ListViewItem newItem = new();
+            newItem.Content = $"#{newTag.Name}";
+            newItem.Tag = newTag;
+            lvTags.Items.Add(newItem);
+            tbAddTag.Clear();
         }
     }
 }

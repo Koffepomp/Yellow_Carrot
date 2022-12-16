@@ -60,6 +60,36 @@ namespace YellowCarrot.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("Ingredients");
+
+                    b.HasData(
+                        new
+                        {
+                            IngredientId = 1,
+                            Name = "Köttfärs",
+                            Quantity = "",
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            IngredientId = 2,
+                            Name = "Sås",
+                            Quantity = "",
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            IngredientId = 3,
+                            Name = "Champis",
+                            Quantity = "1",
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            IngredientId = 4,
+                            Name = "Senap",
+                            Quantity = "1",
+                            RecipeId = 1
+                        });
                 });
 
             modelBuilder.Entity("Yellow_Carrot.Models.Recipe", b =>
@@ -80,6 +110,14 @@ namespace YellowCarrot.Migrations
                     b.HasKey("RecipeId");
 
                     b.ToTable("Recipes");
+
+                    b.HasData(
+                        new
+                        {
+                            RecipeId = 1,
+                            Name = "Köttfärssås2000",
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("Yellow_Carrot.Models.Step", b =>
@@ -105,6 +143,43 @@ namespace YellowCarrot.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("Steps");
+
+                    b.HasData(
+                        new
+                        {
+                            StepId = 1,
+                            Description = "Stek köttfärsen",
+                            Order = 1,
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            StepId = 2,
+                            Description = "Blanda champis och senap i ett glas",
+                            Order = 2,
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            StepId = 3,
+                            Description = "Ta en klunk för att komma i stämning",
+                            Order = 3,
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            StepId = 4,
+                            Description = "Häll såsen i köttfärsen",
+                            Order = 4,
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            StepId = 5,
+                            Description = "Servera och njut",
+                            Order = 5,
+                            RecipeId = 1
+                        });
                 });
 
             modelBuilder.Entity("Yellow_Carrot.Models.Tag", b =>

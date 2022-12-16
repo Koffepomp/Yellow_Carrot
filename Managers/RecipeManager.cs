@@ -44,5 +44,10 @@ namespace Yellow_Carrot.Managers
             .Include(r => r.Tags).ToList();
             return result;
         }
+
+        public Tag? GetTagByName(string tagName)
+        {
+            return context.Tags.Where(t => t.Name == tagName).FirstOrDefault();
+        }
     }
 }

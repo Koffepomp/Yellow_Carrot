@@ -2,10 +2,12 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace YellowCarrot.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialIgen : Migration
+    public partial class SeedRecipe : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -99,6 +101,34 @@ namespace YellowCarrot.Migrations
                         principalTable: "Tags",
                         principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Recipes",
+                columns: new[] { "RecipeId", "Name", "UserId" },
+                values: new object[] { 1, "Köttfärssås2000", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Ingredients",
+                columns: new[] { "IngredientId", "Name", "Quantity", "RecipeId" },
+                values: new object[,]
+                {
+                    { 1, "Köttfärs", "", 1 },
+                    { 2, "Sås", "", 1 },
+                    { 3, "Champis", "1", 1 },
+                    { 4, "Senap", "1", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Steps",
+                columns: new[] { "StepId", "Description", "Order", "RecipeId" },
+                values: new object[,]
+                {
+                    { 1, "Stek köttfärsen", 1, 1 },
+                    { 2, "Blanda champis och senap i ett glas", 2, 1 },
+                    { 3, "Ta en klunk för att komma i stämning", 3, 1 },
+                    { 4, "Häll såsen i köttfärsen", 4, 1 },
+                    { 5, "Servera och njut", 5, 1 }
                 });
 
             migrationBuilder.CreateIndex(

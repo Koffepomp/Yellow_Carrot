@@ -11,6 +11,15 @@ namespace Yellow_Carrot.Data
 
         public DbSet<Ingredient> Ingredients { get; set; }
 
+        public RecipeDbContext()
+        {
+
+        }
+
+        public RecipeDbContext(DbContextOptions options) : base(options)
+        {
+
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
         {
